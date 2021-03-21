@@ -53,22 +53,22 @@ var reset = function () {
 	hero.y = canvas.height / 2;
 
 	// Throw the monster somewhere on the screen randomly
-	monster.x = 32 + (Math.random() * (canvas.width - 64));
-	monster.y = 32 + (Math.random() * (canvas.height - 64));
+	monster.x = 32 + (Math.random() * (canvas.width - 100));
+	monster.y = 32 + (Math.random() * (canvas.height - 100));
 };
 
 // Update game objects
 var update = function (modifier) {
-	if (38 in keysDown) { // Player holding up
+	if (38 in keysDown && hero.y > 32+4) { //  holding up key    
 		hero.y -= hero.speed * modifier;
 	}
-	if (40 in keysDown) { // Player holding down
+	if (40 in keysDown && hero.y < canvas.height - (80 + 6)) { //  holding down key    
 		hero.y += hero.speed * modifier;
 	}
-	if (37 in keysDown) { // Player holding left
+	if (37 in keysDown && hero.x > (40+4)) { // holding left key    
 		hero.x -= hero.speed * modifier;
 	}
-	if (39 in keysDown) { // Player holding right
+	if (39 in keysDown && hero.x < canvas.width - (70 + 6)) { // holding right key    
 		hero.x += hero.speed * modifier;
 	}
 
