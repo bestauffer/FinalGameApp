@@ -11,7 +11,15 @@ var bgImage = new Image();
 bgImage.onload = function () {
 	bgReady = true;
 };
-bgImage.src = "images/background.png";
+bgImage.src = "images/sand.png";
+
+// Image for walls
+var wallsReady = false;
+var wallsImage = new Image();
+wallsImage.onload = function () {
+	wallsReady = true;
+};
+wallsImage.src = "images/cactus.png";
 
 // Hero image
 var heroReady = false;
@@ -19,7 +27,7 @@ var heroImage = new Image();
 heroImage.onload = function () {
 	heroReady = true;
 };
-heroImage.src = "images/hero.png";
+heroImage.src = "images/pharaoh.png";
 
 // Monster image
 var monsterReady = false;
@@ -27,13 +35,39 @@ var monsterImage = new Image();
 monsterImage.onload = function () {
 	monsterReady = true;
 };
-monsterImage.src = "images/monster.png";
+monsterImage.src = "images/mummy.png";
+
+// Obstacle image
+var obstacleReady = false;
+var obstacleImage = new Image();
+obstacleImage.onload = function () {
+	obstacleReady = true;
+};
+obstacleImage.src = "images/tumbleweed.png";
 
 // Game objects
 var hero = {
 	speed: 256 // movement in pixels per second
 };
 var monster = {};
+
+var tumbleweed1 = {
+	x:350,
+	y:100
+};
+var tumbleweed2 = {
+	x:250,
+	y:600
+};
+var tumbleweed3 = {
+	x:600,
+	y:300
+};
+var tumbleweed4 = {
+	x:100,
+	y:500
+};
+
 var monstersCaught = 0;
 
 // Handle keyboard controls
@@ -53,13 +87,13 @@ var reset = function () {
 	hero.y = canvas.height / 2;
 
 	// Throw the monster somewhere on the screen randomly
-	monster.x = 32 + (Math.random() * (canvas.width - 100));
-	monster.y = 32 + (Math.random() * (canvas.height - 100));
+	monster.x = 50 + (Math.random() * (canvas.width - 100));
+	monster.y = 50 + (Math.random() * (canvas.height - 100));
 };
 
 // Update game objects
 var update = function (modifier) {
-	if (38 in keysDown && hero.y > 32+4) { //  holding up key    
+	if (38 in keysDown && hero.y > 50) { //  holding up key    
 		hero.y -= hero.speed * modifier;
 	}
 	if (40 in keysDown && hero.y < canvas.height - (80 + 6)) { //  holding down key    
@@ -68,7 +102,7 @@ var update = function (modifier) {
 	if (37 in keysDown && hero.x > (40+4)) { // holding left key    
 		hero.x -= hero.speed * modifier;
 	}
-	if (39 in keysDown && hero.x < canvas.width - (70 + 6)) { // holding right key    
+	if (39 in keysDown && hero.x < canvas.width - (70 + 20)) { // holding right key    
 		hero.x += hero.speed * modifier;
 	}
 
@@ -87,7 +121,21 @@ var update = function (modifier) {
 // Draw everything
 var render = function () {
 	if (bgReady) {
-		ctx.drawImage(bgImage, 0, 0);
+		//Fills in the 256x256 background image until it fills the whole 800x800 space
+		for(i=0; i<800; i+=256){
+			for(k=0; k<800; k+=256){
+				ctx.drawImage(bgImage, i, k);
+			}
+		}
+	}
+
+	if (wallsReady) {
+		for(i=0; i<800; i+=50){
+			ctx.drawImage(wallsImage, i, 0);
+			ctx.drawImage(wallsImage, 0, i);
+			ctx.drawImage(wallsImage, 750, i);
+			ctx.drawImage(wallsImage, i, 750);
+		}
 	}
 
 	if (heroReady) {
@@ -98,12 +146,19 @@ var render = function () {
 		ctx.drawImage(monsterImage, monster.x, monster.y);
 	}
 
+	if (obstacleReady) {
+		ctx.drawImage(obstacleImage, tumbleweed1.x, tumbleweed1.y);
+		ctx.drawImage(obstacleImage, tumbleweed2.x, tumbleweed2.y);
+		ctx.drawImage(obstacleImage, tumbleweed3.x, tumbleweed3.y);
+		ctx.drawImage(obstacleImage, tumbleweed4.x, tumbleweed4.y);
+	}
+
 	// Score
 	ctx.fillStyle = "rgb(250, 250, 250)";
 	ctx.font = "24px Helvetica";
 	ctx.textAlign = "left";
 	ctx.textBaseline = "top";
-	ctx.fillText("Goblins caught: " + monstersCaught, 32, 32);
+	ctx.fillText("Mummies caught: " + monstersCaught, 50, 50);
 };
 
 // The main game loop
