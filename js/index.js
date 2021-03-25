@@ -95,6 +95,8 @@ var reset = function () {
 
 // Update game objects
 var update = function (modifier) {
+	if(monstersCaught < 5){
+	
 	if (38 in keysDown && hero.y > 50) { //  holding up key    
 		hero.y -= hero.speed * modifier;
 	}
@@ -125,6 +127,8 @@ var update = function (modifier) {
 	}
 	if(touchingObstacle(hero)){
 		alert("You ran into the tumbleweed! Game over.");
+		monstersCaught = 5;
+	}
 	}
 };
 
