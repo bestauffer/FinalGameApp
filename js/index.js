@@ -1,3 +1,7 @@
+var monstersCaught = 0;
+do{
+
+
 // Create the canvas
 var canvas = document.createElement("canvas");
 var ctx = canvas.getContext("2d");
@@ -68,7 +72,7 @@ var tumbleweed4 = {
 	y:500
 };
 
-var monstersCaught = 0;
+
 
 // Handle keyboard controls
 var keysDown = {};
@@ -183,3 +187,6 @@ requestAnimationFrame = w.requestAnimationFrame || w.webkitRequestAnimationFrame
 var then = Date.now();
 reset();
 main();
+	
+	
+} while(monstersCaught < 5);
