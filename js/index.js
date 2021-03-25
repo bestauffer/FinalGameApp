@@ -1,3 +1,5 @@
+var audio = new Audio('Sound.mp3'); 
+
 // Create the canvas
 var canvas = document.createElement("canvas");
 var ctx = canvas.getContext("2d");
@@ -87,7 +89,7 @@ addEventListener("keyup", function (e) {
 
 // Reset the game when the player catches a monster
 var reset = function () {
-	var audio = new Audio('Sound.mp3'); 
+	
 	audio.play();
 	hero.x = canvas.width / 2;
 	hero.y = canvas.height / 2;
