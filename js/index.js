@@ -1,5 +1,5 @@
 var monstersCaught = 0;
-do{
+//do{
 
 
 // Create the canvas
@@ -189,5 +189,5 @@ reset();
 main();
 	
 	
-} 
-while(monstersCaught < 5);
+//} 
+//while(monstersCaught < 5);
