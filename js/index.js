@@ -1,7 +1,3 @@
-var monstersCaught = 0;
-
-
-
 // Create the canvas
 var canvas = document.createElement("canvas");
 var ctx = canvas.getContext("2d");
@@ -72,7 +68,7 @@ var tumbleweed4 = {
 	y:500
 };
 
-
+var monstersCaught = 0;
 
 // Handle keyboard controls
 var keysDown = {};
@@ -90,14 +86,16 @@ var reset = function () {
 	hero.x = canvas.width / 2;
 	hero.y = canvas.height / 2;
 
+	do{
 	// Throw the monster somewhere on the screen randomly
-	monster.x = 50 + (Math.random() * (canvas.width - 100));
-	monster.y = 50 + (Math.random() * (canvas.height - 100));
+	monster.x = 50 + (Math.random() * (canvas.width - 150));
+	monster.y = 50 + (Math.random() * (canvas.height - 150));
+	} while(touchingObstacle(monster));
 };
 
 // Update game objects
 var update = function (modifier) {
-	if (38 in keysDown && hero.y > 40+4) { //  holding up key    
+	if (38 in keysDown && hero.y > 50) { //  holding up key    
 		hero.y -= hero.speed * modifier;
 	}
 	if (40 in keysDown && hero.y < canvas.height - (80 + 6)) { //  holding down key    
@@ -118,12 +116,13 @@ var update = function (modifier) {
 		&& monster.y <= (hero.y + 32)
 	) {
 		++monstersCaught;
-		if(monstersCaught <= 4){
+		if(monstersCaught > 4){
+			alert("You win!");
+		}
 		reset();
-		}
-		else{
-		alert("You Won");	
-		}
+	}
+	if(touchingObstacle(hero)){
+		alert("You ran into the tumbleweed! Game over.");
 	}
 };
 
@@ -172,8 +171,7 @@ var render = function () {
 
 // The main game loop
 var main = function () {
-	if(monstersCaught <= 4){
-		var now = Date.now();
+	var now = Date.now();
 	var delta = now - then;
 
 	update(delta / 1000);
@@ -183,12 +181,33 @@ var main = function () {
 
 	// Request to do this again ASAP
 	requestAnimationFrame(main);
-		}
-		else{
-		
-		}
-	
 };
+
+function touchingObstacle(who){
+	if(
+		(who.x <= (tumbleweed1.x + 45)
+			&& tumbleweed1.x <= (who.x + 27)
+			&& who.y <= (tumbleweed1.y + 37)
+			&& tumbleweed1.y <= (who.y + 35)) ||
+		(who.x <= (tumbleweed2.x + 45)
+			&& tumbleweed2.x <= (who.x + 27)
+			&& who.y <= (tumbleweed2.y + 37)
+			&& tumbleweed2.y <= (who.y + 35)) ||
+		(who.x <= (tumbleweed3.x + 45)
+			&& tumbleweed3.x <= (who.x + 27)
+			&& who.y <= (tumbleweed3.y + 37)
+			&& tumbleweed3.y <= (who.y + 35)) ||
+		(who.x <= (tumbleweed4.x + 45)
+			&& tumbleweed4.x <= (who.x + 27)
+			&& who.y <= (tumbleweed4.y + 37)
+			&& tumbleweed4.y <= (who.y + 35))
+	){
+		return true;
+	}
+	else{
+		return false;
+	}
+}
 
 // Cross-browser support for requestAnimationFrame
 var w = window;
@@ -198,5 +217,3 @@ requestAnimationFrame = w.requestAnimationFrame || w.webkitRequestAnimationFrame
 var then = Date.now();
 reset();
 main();
-	
-	
