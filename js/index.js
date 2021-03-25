@@ -119,7 +119,9 @@ var update = function (modifier) {
 		if(monstersCaught > 4){
 			alert("You win!");
 		}
+		else{
 		reset();
+		}
 	}
 	if(touchingObstacle(hero)){
 		alert("You ran into the tumbleweed! Game over.");
