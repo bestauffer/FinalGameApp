@@ -1,4 +1,4 @@
-var audio = new sound('Sound.mp3'); 
+var audio = new Audio('Sound.mp3'); 
 
 // Create the canvas
 var canvas = document.createElement("canvas");
