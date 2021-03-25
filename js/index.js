@@ -1,5 +1,5 @@
 var monstersCaught = 0;
-//do{
+
 
 
 // Create the canvas
@@ -118,7 +118,12 @@ var update = function (modifier) {
 		&& monster.y <= (hero.y + 32)
 	) {
 		++monstersCaught;
+		if(monstersCaught <= 4){
 		reset();
+		}
+		else{
+		alert("You Won");	
+		}
 	}
 };
 
@@ -167,7 +172,8 @@ var render = function () {
 
 // The main game loop
 var main = function () {
-	var now = Date.now();
+	if(monstersCaught <= 4){
+		var now = Date.now();
 	var delta = now - then;
 
 	update(delta / 1000);
@@ -177,6 +183,11 @@ var main = function () {
 
 	// Request to do this again ASAP
 	requestAnimationFrame(main);
+		}
+		else{
+		
+		}
+	
 };
 
 // Cross-browser support for requestAnimationFrame
@@ -189,5 +200,3 @@ reset();
 main();
 	
 	
-//} 
-//while(monstersCaught < 5);
