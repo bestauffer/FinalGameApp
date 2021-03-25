@@ -93,7 +93,7 @@ var reset = function () {
 
 // Update game objects
 var update = function (modifier) {
-	if (38 in keysDown && hero.y > 50) { //  holding up key    
+	if (38 in keysDown && hero.y > 45) { //  holding up key    
 		hero.y -= hero.speed * modifier;
 	}
 	if (40 in keysDown && hero.y < canvas.height - (80 + 6)) { //  holding down key    
