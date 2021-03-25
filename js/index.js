@@ -67,6 +67,10 @@ var tumbleweed4 = {
 	x:100,
 	y:500
 };
+var tumbleweed5 = {
+	x:500,
+	y:550
+}
 
 var monstersCaught = 0;
 
@@ -165,6 +169,7 @@ var render = function () {
 		ctx.drawImage(obstacleImage, tumbleweed2.x, tumbleweed2.y);
 		ctx.drawImage(obstacleImage, tumbleweed3.x, tumbleweed3.y);
 		ctx.drawImage(obstacleImage, tumbleweed4.x, tumbleweed4.y);
+		ctx.drawImage(obstacleImage, tumbleweed5.x, tumbleweed5.y);
 	}
 
 	// Score
@@ -206,7 +211,11 @@ function touchingObstacle(who){
 		(who.x <= (tumbleweed4.x + 45)
 			&& tumbleweed4.x <= (who.x + 27)
 			&& who.y <= (tumbleweed4.y + 37)
-			&& tumbleweed4.y <= (who.y + 35))
+			&& tumbleweed4.y <= (who.y + 35)) ||
+		(who.x <= (tumbleweed5.x + 45)
+			&& tumbleweed5.x <= (who.x + 27)
+			&& who.y <= (tumbleweed5.y + 37)
+			&& tumbleweed5.y <= (who.y + 35))
 	){
 		return true;
 	}
